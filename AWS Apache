@@ -1,0 +1,37 @@
+cd /usr/local/lib
+wget http://lib.gblearn.com/apache/httpd-2.4.10.tar.gz
+tar xvfz httpd-2.4.10.tar.gz
+cd /usr/local/lib/httpd-2.4.10/srclib/
+wget http://lib.gblearn.com/apache/apr/apr-1.5.1.tar.gz
+tar xvfz apr-1.5.1.tar.gz
+cd /usr/local/lib/httpd-2.4.10/srclib/
+wget http://lib.gblearn.com/apache/apr/apr-util-1.5.3.tar.gz
+tar xvfz apr-util-1.5.3.tar.gz
+cd /usr/local/lib/httpd-2.4.10/srclib/
+wget http://lib.gblearn.com/apache/pcre/pcre-8.34.tar.gz
+tar xvfz pcre-8.34.tar.gz
+
+cd /usr/local/lib/httpd-2.4.10/srclib/apr-1.5.1/
+./configure
+make
+make install
+
+cd /usr/local/lib/httpd-2.4.10/srclib/apr-util-1.5.3/
+./configure --with-apr=/usr/local/apr/bin/apr-1-config
+make
+make install
+
+cd /usr/local/lib/httpd-2.4.10/srclib/pcre-8.34/
+./configure --prefix=/usr/local/pcre
+make
+make install
+
+cd /usr/local/lib/httpd-2.4.10/
+./configure --prefix=/usr/local/apache2 -with-pcre=/usr/local/pcre -enable-so
+make
+make install
+
+
+/usr/local/apache2/bin/apachectl restart
+/usr/local/apache2/bin/apachectl stop
+/usr/local/apache2/bin/apachectl start
