@@ -1,0 +1,16 @@
+#!/bin/bash
+echo `Please type the location of the file or folder you want to backup`
+read backupf
+	if test -e $backupf; then
+		backuptime = `date +%b-%d-%y` 
+		echo `Please type the location you want to store this backup file`
+		read destiny
+			if test -e $destiny; then
+				echo `type y to start`
+				read go
+					if go = `y`; then
+						tar -cpzf $destiny $backupf
+	else; fi;		
+			else; fi;
+					else; fi;
+		
