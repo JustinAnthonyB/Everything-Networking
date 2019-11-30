@@ -1,0 +1,138 @@
+	Router R1 Configuration:
+enable
+conf t
+hostname R1
+enable secret class
+ipv6 unicast-routing
+no ip domain lookup
+interface Loopback0
+ip address 209.165.200.225 255.255.255.252
+interface Loopback1
+ip address 192.168.1.1 255.255.255.0
+ipv6 address 2001:DB8:ACAD:1::1/64
+ipv6 ospf 1 area 1
+ipv6 ospf network point-to-point
+interface Loopback2
+ip address 192.168.2.1 255.255.255.0
+ipv6 address 2001:DB8:ACAD:2::1/64
+ipv6 ospf 1 area 1
+ipv6 ospf network point-to-point
+interface Serial0/0/0
+ip address 192.168.12.1 255.255.255.252
+ipv6 address FE80::1 link-local
+ipv6 address 2001:DB8:ACAD:12::1/64
+ipv6 ospf 1 area 0
+clock rate 128000
+no shutdown
+router ospf 1
+router-id 1.1.1.1
+passive-interface Loopback1
+passive-interface Loopback2
+network 192.168.1.0 0.0.0.255 area 1
+network 192.168.2.0 0.0.0.255 area 1
+network 192.168.12.0 0.0.0.3 area 0
+default-information originate
+ipv6 router ospf 1
+router-id 1.1.1.1
+area 1 range 2001:DB8:ACAD::/62
+ip route 0.0.0.0 0.0.0.0 Loopback0
+banner motd @
+ Unauthorized Access is Prohibited! @
+line con 0
+password cisco
+logging synchronous
+login
+line vty 0 4
+password cisco
+logging synchronous
+login
+transport input all
+end
+
+	Router R2 Configuration:
+enable
+conf t
+hostname R2
+ipv6 unicast-routing
+no ip domain lookup
+enable secret class
+interface Loopback6
+ip address 192.168.6.1 255.255.255.0
+ipv6 address 2001:DB8:ACAD:6::1/64
+ipv6 ospf 1 area 3
+interface Serial0/0/0
+ip address 192.168.12.2 255.255.255.252
+ipv6 address FE80::2 link-local
+ipv6 address 2001:DB8:ACAD:12::2/64
+ipv6 ospf 1 area 0
+no shutdown
+interface Serial0/0/1
+ip address 192.168.23.2 255.255.255.252
+ipv6 address FE80::2 link-local
+ipv6 address 2001:DB8:ACAD:23::2/64
+ipv6 ospf 1 area 3
+clock rate 128000
+no shutdown
+router ospf 1
+router-id 2.2.2.2
+passive-interface Loopback6
+network 192.168.6.0 0.0.0.255 area 3
+network 192.168.12.0 0.0.0.3 area 0
+network 192.168.23.0 0.0.0.3 area 3
+ipv6 router ospf 1
+router-id 2.2.2.2
+banner motd @
+ Unauthorized Access is Prohibited! @
+line con 0
+password cisco
+logging synchronous
+login
+line vty 0 4
+password cisco
+logging synchronous
+login
+transport input all
+end
+
+	Router R3 Configuration:
+enable
+conf t
+hostname R3
+no ip domain lookup
+ipv6 unicast-routing
+enable secret class
+interface Loopback4
+ip address 192.168.4.1 255.255.255.0
+ipv6 address 2001:DB8:ACAD:4::1/64
+ipv6 ospf 1 area 3
+interface Loopback5
+ip address 192.168.5.1 255.255.255.0
+ipv6 address 2001:DB8:ACAD:5::1/64
+ipv6 ospf 1 area 3
+interface Serial0/0/1
+ip address 192.168.23.1 255.255.255.252
+ipv6 address FE80::3 link-local
+ipv6 address 2001:DB8:ACAD:23::1/64
+ipv6 ospf 1 area 3
+no shutdown
+router ospf 1
+router-id 3.3.3.3
+passive-interface Loopback4
+passive-interface Loopback5
+network 192.168.4.0 0.0.0.255 area 3
+network 192.168.5.0 0.0.0.255 area 3
+network 192.168.23.0 0.0.0.3 area 3
+ipv6 router ospf 1
+router-id 3.3.3.3
+banner motd @
+ Unauthorized Access is Prohibited! @
+line con 0
+password cisco
+logging synchronous
+login
+line vty 0 4
+password cisco
+logging synchronous
+login
+transport input all
+end

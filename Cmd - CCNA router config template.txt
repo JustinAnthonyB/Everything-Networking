@@ -1,0 +1,14 @@
+enable
+conf t
+service password-encryption
+no ip domain lookup
+hostname R2
+enable secret class
+line con 0
+logging synchronous
+password cisco
+login
+line vty 0
+password cisco
+login
+banner motd @Unauthorized Access is Prohibited!@
