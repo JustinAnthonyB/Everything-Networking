@@ -1,0 +1,61 @@
+	R1
+
+router eigrp 1
+network 192.168.1.0
+network 192.168.12.0 0.0.0.3
+network 192.168.13.0 0.0.0.3
+network 192.168.11.0 0.0.0.3
+network 192.168.11.4 0.0.0.3
+network 192.168.11.8 0.0.0.3
+network 192.168.11.12 0.0.0.3
+passive-interface g0/0
+auto-summary
+redistribute static
+int s0/0/0
+bandwidth 1024
+ip bandwidth-percent eigrp 1 75
+ip hello-interval eigrp 1 60
+ip hold-time eigrp 1 180
+int s0/0/1
+bandwidth 64
+ip bandwidth-percent eigrp 1 40
+ip hello-interval eigrp 1 60
+ip hold-time eigrp 1 180
+exit
+ip route 0.0.0.0 0.0.0.0 lo1
+
+	R2
+router eigrp 1
+network 192.168.2.0
+network 192.168.12.0 0.0.0.3
+network 192.168.23.0 0.0.0.3
+passive-interface g0/0
+redistribute static
+int s0/0/0
+bandwidth 1024
+ip bandwidth-percent eigrp 1 75
+ip hello-interval eigrp 1 60
+ip hold-time eigrp 1 180
+int s0/0/1
+ip hello-interval eigrp 1 60
+ip hold-time eigrp 1 180
+
+	R3
+router eigrp 1
+network 192.168.3.0
+network 192.168.13.0 0.0.0.3
+network 192.168.23.0 0.0.0.3
+network 192.168.33.0 0.0.0.3
+network 192.168.33.4 0.0.0.3
+network 192.168.33.8 0.0.0.3
+network 192.168.33.12 0.0.0.3
+passive-interface g0/0
+auto-summary
+int s0/0/0
+bandwidth 64
+ip bandwidth-percent eigrp 1 40
+ip hello-interval eigrp 1 60
+ip hold-time eigrp 1 180
+int s0/0/1
+ip hello-interval eigrp 1 60
+ip hold-time eigrp 1 180
