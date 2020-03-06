@@ -1,0 +1,8 @@
+ip domain-name ccna-lab.com
+username admin password classadm
+enable secret class
+line vty 0 15
+login local
+transport input telnet
+exit
+crypto key generate rsa
